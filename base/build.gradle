@@ -1,0 +1,61 @@
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.app.base'
+    compileSdk Integer.parseInt(libs.versions.compileSdk.get())
+
+    defaultConfig {
+        minSdk Integer.parseInt(libs.versions.minSdk.get())
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = libs.versions.kotlinJvmTarget.get()
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    api project(":application")
+    api project(":utils")
+
+    api libs.kotlinx.coroutines.core
+    api libs.kotlinx.coroutines.android
+
+    api libs.androidx.core.ktx
+    api libs.androidx.appcompat
+    api(libs.androidx.lifecycle.runtime.ktx)
+    api(libs.androidx.lifecycle.viewmodel.ktx)
+    api(libs.androidx.lifecycle.livedata.ktx)
+    api(libs.androidx.constraintlayout)
+
+    api libs.google.android.material
+    
+    api libs.utilcodex
+}

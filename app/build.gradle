@@ -1,0 +1,63 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.google.hilt)
+    alias(libs.plugins.google.ksp)
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.summer.module'
+    compileSdk Integer.parseInt(libs.versions.compileSdk.get())
+
+    defaultConfig {
+        applicationId "com.summer.module"
+        minSdk Integer.parseInt(libs.versions.minSdk.get())
+        targetSdk Integer.parseInt(libs.versions.targetSdk.get())
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = Integer.parseInt(libs.versions.kotlinJvmTarget.get())
+    }
+
+    viewBinding {
+        enabled = true
+    }
+    dataBinding {
+        enabled = true
+    }
+
+    kapt {
+        correctErrorTypes true
+    }
+
+    hilt {
+        enableAggregatingTask = true
+    }
+}
+
+dependencies {
+    implementation project(":base")
+    implementation project(":network")
+    implementation project(":database")
+
+    implementation libs.squareup.retrofit
+
+    implementation libs.google.hilt.android
+    kapt libs.google.hilt.compiler
+}

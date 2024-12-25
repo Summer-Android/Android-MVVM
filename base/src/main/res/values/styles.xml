@@ -1,0 +1,10 @@
+<resources>
+    <!-- BottomSheetDialog https://stackoverflow.com/questions/47553936/prevent-bottomsheetdialogfragment-covering-navigation-bar-->
+    <style name="bottom_sheet_dialog" parent="@style/Theme.Material3.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+    </style>
+
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+</resources>

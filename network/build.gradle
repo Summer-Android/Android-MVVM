@@ -1,0 +1,48 @@
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.google.hilt)
+    alias(libs.plugins.google.ksp)
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.app.network'
+    compileSdk Integer.parseInt(libs.versions.compileSdk.get())
+
+    defaultConfig {
+        minSdk Integer.parseInt(libs.versions.minSdk.get())
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = libs.versions.kotlinJvmTarget.get()
+    }
+}
+
+dependencies {
+    implementation project(":application")
+
+    implementation libs.androidx.core.ktx
+    implementation libs.squareup.okhttp3
+    implementation libs.squareup.retrofit
+    implementation libs.squareup.retrofit.converter.gson
+    implementation libs.google.gson
+    implementation libs.getActivity.gsonFactory
+    implementation libs.kotlin.reflect
+    implementation libs.google.hilt.android
+    kapt libs.google.hilt.compiler
+}
